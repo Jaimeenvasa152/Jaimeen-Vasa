@@ -176,7 +176,7 @@ const portfolioItems = [
     },
     {
         title: "Project 8",
-        image: "images/8.JPG",
+        image: "images/8.png",
         description: "Visual storytelling through sequential art.",
         category: "Illustration"
     }
