@@ -165,7 +165,7 @@ const portfolioItems = [
     {
         title: "Project 6",
         image: "images/6.jpg",
-        description: "Experimental video project exploring motion design.",
+        description: "Experimental design project exploring new techniques.",
         category: "Experimental"
     },
     {
@@ -182,8 +182,22 @@ const portfolioItems = [
     }
 ];
 
+// Preload first 4 images immediately
+function preloadImages() {
+    const firstFourItems = portfolioItems.slice(0, 4);
+    firstFourItems.forEach(item => {
+        const img = new Image();
+        img.src = item.image;
+    });
+}
+
+// Call preload function when DOM is loaded
+document.addEventListener('DOMContentLoaded', preloadImages);
+
 // Add portfolio items to the grid with animations
 const portfolioGrid = document.querySelector('.portfolio-grid');
+
+// Create portfolio items with optimized loading
 portfolioItems.forEach((item, index) => {
     const portfolioItem = document.createElement('div');
     portfolioItem.className = 'portfolio-item';
@@ -191,52 +205,45 @@ portfolioItems.forEach((item, index) => {
     portfolioItem.setAttribute('aria-label', `${item.title} - ${item.category}`);
     portfolioItem.style.animationDelay = `${index * 0.1}s`;
 
-    let mediaElement;
-    if (index === 5) { // For the 6th item (index 5)
-        mediaElement = document.createElement('video');
-        mediaElement.src = item.image;
-        mediaElement.alt = item.title;
-        mediaElement.loading = 'lazy';
-        mediaElement.setAttribute('aria-label', item.title);
-        mediaElement.setAttribute('playsinline', '');
-        mediaElement.setAttribute('muted', '');
-        mediaElement.setAttribute('loop', '');
-        mediaElement.setAttribute('autoplay', '');
-    } else {
-        // Create a low-quality placeholder
-        const placeholder = document.createElement('div');
-        placeholder.className = 'image-placeholder';
-        portfolioItem.appendChild(placeholder);
+    // Create placeholder immediately
+    const placeholder = document.createElement('div');
+    placeholder.className = 'image-placeholder';
+    portfolioItem.appendChild(placeholder);
 
-        // Create the actual image
-        mediaElement = document.createElement('img');
-        mediaElement.src = item.image;
-        mediaElement.alt = `${item.title} - ${item.category}`;
-        mediaElement.loading = 'lazy';
-        mediaElement.width = '800';
-        mediaElement.height = '600';
-        mediaElement.setAttribute('aria-label', item.title);
-        mediaElement.style.opacity = '0';
-        mediaElement.style.transition = 'opacity 0.3s ease-in-out';
+    // Create the actual image with optimized loading
+    const mediaElement = document.createElement('img');
+    mediaElement.src = item.image;
+    mediaElement.alt = `${item.title} - ${item.category}`;
+    mediaElement.loading = 'lazy';
+    mediaElement.width = '800';
+    mediaElement.height = '600';
+    mediaElement.setAttribute('aria-label', item.title);
+    mediaElement.style.opacity = '0';
+    mediaElement.style.transition = 'opacity 0.3s ease-in-out';
 
-        // Load image progressively
-        mediaElement.addEventListener('load', () => {
-            mediaElement.style.opacity = '1';
-            placeholder.style.display = 'none';
-            portfolioItem.classList.add('loaded');
-        });
-    }
-
-    portfolioItem.innerHTML = `
-        ${mediaElement.outerHTML}
-        <div class="portfolio-overlay">
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-            <span class="category">${item.category}</span>
-        </div>
-    `;
-
+    // Add the portfolio item to the grid first
     portfolioGrid.appendChild(portfolioItem);
+
+    // Then add the media element with a slight delay for better performance
+    setTimeout(() => {
+        portfolioItem.innerHTML = `
+            ${mediaElement.outerHTML}
+            <div class="portfolio-overlay">
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+                <span class="category">${item.category}</span>
+            </div>
+        `;
+
+        // Add loading event listener
+        const img = portfolioItem.querySelector('img');
+        if (img) {
+            img.addEventListener('load', () => {
+                img.style.opacity = '1';
+                portfolioItem.classList.add('loaded');
+            });
+        }
+    }, index * 100); // Stagger the loading of images
 });
 
 // Create popup container
@@ -257,29 +264,19 @@ document.body.appendChild(popup);
 portfolioGrid.addEventListener('click', (e) => {
     const portfolioItem = e.target.closest('.portfolio-item');
     if (portfolioItem) {
-        const media = portfolioItem.querySelector('img, video');
+        const media = portfolioItem.querySelector('img');
         const popupMedia = popup.querySelector('.popup-media');
         const itemTitle = portfolioItem.getAttribute('aria-label');
         
         // Clear previous content
         popupMedia.innerHTML = '';
         
-        // Check if the clicked item is a video
-        if (media.tagName.toLowerCase() === 'video') {
-            const video = document.createElement('video');
-            video.src = media.src;
-            video.controls = true;
-            video.autoplay = true;
-            video.loop = true;
-            video.setAttribute('aria-label', itemTitle);
-            popupMedia.appendChild(video);
-        } else {
-            const img = document.createElement('img');
-            img.src = media.src;
-            img.alt = media.alt;
-            img.setAttribute('aria-label', itemTitle);
-            popupMedia.appendChild(img);
-        }
+        // Create and add image to popup
+        const img = document.createElement('img');
+        img.src = media.src;
+        img.alt = media.alt;
+        img.setAttribute('aria-label', itemTitle);
+        popupMedia.appendChild(img);
         
         popup.classList.add('active');
         popup.setAttribute('aria-hidden', 'false');

@@ -64,6 +64,17 @@
       }
     }
     </script>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="images/1.png">
+    <link rel="preload" as="image" href="images/2.png">
+    <link rel="preload" as="image" href="images/3.PNG">
+    <link rel="preload" as="image" href="images/4.png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     <div class="cursor"></div>
@@ -187,6 +198,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="image-optimizer.js"></script>
 </body>
-</html> 
 </html> 
