@@ -305,7 +305,7 @@ document.addEventListener('keydown', (e) => {
 // EmailJS Integration
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS with your public key
-    emailjs.init("ahT0l81eepfyKUcCC"); // Replace with your actual public key
+    emailjs.init("ahT0l81eepfyKUcCC");
     
     const contactForm = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -334,23 +334,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 to_name: 'Jaimeen Vasa' // Your name
             };
             
-            // Send email using EmailJS
+            // Send email using EmailJS with improved error handling
             emailjs.send('service_1j393qb', 'template_l3s9ybh', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     formStatus.className = 'form-status success';
                     formStatus.textContent = 'Your message has been sent successfully!';
                     contactForm.reset();
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    formStatus.className = 'form-status error';
-                    formStatus.textContent = 'Failed to send message. Please try again later.';
+                })
+                .catch(function(error) {
+                    console.error('FAILED...', error);
+                    
+                    // Try fallback method
+                    tryFallbackMethod(name, email, message);
                 })
                 .finally(function() {
                     // Re-enable the submit button
                     submitBtn.disabled = false;
                 });
         });
+    }
+    
+    // Fallback method using mailto link
+    function tryFallbackMethod(name, email, message) {
+        // Create a mailto link with the form data
+        const mailtoLink = `mailto:jaimeenvassa@gmail.com?subject=Contact from ${name}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+        
+        // Show a message to the user
+        formStatus.className = 'form-status error';
+        formStatus.innerHTML = 'EmailJS service is currently unavailable. <a href="' + mailtoLink + '" class="fallback-link">Click here to send via your email client</a>';
+        formStatus.style.display = 'block';
     }
 });
 

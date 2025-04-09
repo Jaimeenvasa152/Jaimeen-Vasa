@@ -924,4 +924,52 @@ section.animate {
     100% {
         transform: translateX(100%);
     }
+}
+
+.fallback-link {
+    color: var(--accent-color);
+    text-decoration: underline;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.fallback-link:hover {
+    color: var(--secondary-color);
+}
+
+.direct-contact {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.direct-contact p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.direct-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--accent-color);
+    color: var(--text-color);
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.direct-contact-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.direct-contact-btn i {
+    font-size: 1.1rem;
 } 
