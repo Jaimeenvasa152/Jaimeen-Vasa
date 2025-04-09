@@ -305,7 +305,7 @@ document.addEventListener('keydown', (e) => {
 // EmailJS Integration
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS with your public key
-    emailjs.init("ahT0l81eepfyKUcCC");
+    emailjs.init("G5zHyI1h5zd7iRQfb");
     
     const contactForm = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             // Send email using EmailJS with improved error handling
-            emailjs.send('service_1j393qb', 'template_l3s9ybh', templateParams)
+            emailjs.send('service_3f4e7wj', 'template_l3s9ybh', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     formStatus.className = 'form-status success';
