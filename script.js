@@ -233,6 +233,12 @@ portfolioItems.forEach((item, index) => {
         mediaElement.setAttribute('loop', '');
         mediaElement.setAttribute('autoplay', '');
     } else {
+        // Create a low-quality placeholder
+        const placeholder = document.createElement('div');
+        placeholder.className = 'image-placeholder';
+        portfolioItem.appendChild(placeholder);
+
+        // Create the actual image
         mediaElement = document.createElement('img');
         mediaElement.src = item.image;
         mediaElement.alt = `${item.title} - ${item.category}`;
@@ -240,12 +246,16 @@ portfolioItems.forEach((item, index) => {
         mediaElement.width = '800';
         mediaElement.height = '600';
         mediaElement.setAttribute('aria-label', item.title);
-    }
+        mediaElement.style.opacity = '0';
+        mediaElement.style.transition = 'opacity 0.3s ease-in-out';
 
-    // Add loading event listener
-    mediaElement.addEventListener('load', () => {
-        portfolioItem.classList.add('loaded');
-    });
+        // Load image progressively
+        mediaElement.addEventListener('load', () => {
+            mediaElement.style.opacity = '1';
+            placeholder.style.display = 'none';
+            portfolioItem.classList.add('loaded');
+        });
+    }
 
     portfolioItem.innerHTML = `
         ${mediaElement.outerHTML}
