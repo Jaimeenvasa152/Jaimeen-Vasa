@@ -203,12 +203,6 @@ const portfolioItems = [
         image: "images/12.JPG",
         description: "Product photography for an e-commerce campaign.",
         category: "Photography"
-    },
-    {
-        title: "Project 13",
-        image: "images/13.jpg",
-        description: "Motion graphics for a corporate presentation.",
-        category: "Motion"
     }
 ];
 
