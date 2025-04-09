@@ -130,79 +130,85 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Portfolio items with your actual work
+// Portfolio items data
 const portfolioItems = [
     {
         title: "Project 1",
-        image: "images/1.PNG",
-        description: "Creative design project showcasing unique visual elements",
+        image: "images/1.png",
+        description: "A creative design project showcasing innovative concepts.",
         category: "Graphic Design"
     },
     {
         title: "Project 2",
-        image: "images/2.PNG",
-        description: "Innovative design solution with modern aesthetics",
-        category: "Visual Design"
+        image: "images/2.png",
+        description: "Visual identity design for a modern brand.",
+        category: "Branding"
     },
     {
         title: "Project 3",
         image: "images/3.PNG",
-        description: "Brand identity and visual communication design",
-        category: "Branding"
-    },
-    {
-        title: "Project 4",
-        image: "images/4.PNG",
-        description: "Digital art and creative illustration work",
+        description: "Digital illustration exploring abstract themes.",
         category: "Illustration"
     },
     {
-        title: "Project 5",
-        image: "images/5.PNG",
-        description: "Modern UI/UX design project",
+        title: "Project 4",
+        image: "images/4.png",
+        description: "User interface design for a mobile application.",
         category: "UI/UX"
     },
     {
-        title: "Project 6",
-        image: "images/6.MP4",
-        description: "Creative photography and visual storytelling",
+        title: "Project 5",
+        image: "images/5.png",
+        description: "Photography series capturing urban landscapes.",
         category: "Photography"
     },
     {
-        title: "Project 7",
-        image: "images/7.PNG",
-        description: "Experimental design project",
+        title: "Project 6",
+        image: "images/6.mp4",
+        description: "Experimental video project exploring motion design.",
         category: "Experimental"
+    },
+    {
+        title: "Project 7",
+        image: "images/7.png",
+        description: "Commercial advertisement design for a global brand.",
+        category: "Commercial"
     },
     {
         title: "Project 8",
         image: "images/8.JPG",
-        description: "Commercial design work",
-        category: "Commercial"
+        description: "Visual storytelling through sequential art.",
+        category: "Illustration"
     },
     {
         title: "Project 9",
         image: "images/9.JPG",
-        description: "Artistic photography project",
-        category: "Photography"
+        description: "Brand identity system for a startup company.",
+        category: "Branding"
     },
     {
         title: "Project 10",
         image: "images/10.JPG",
-        description: "Digital art and creative design",
-        category: "Digital Art"
+        description: "Interactive web design with focus on user experience.",
+        category: "UI/UX"
     },
     {
         title: "Project 11",
         image: "images/11.JPG",
-        description: "Visual communication design",
-        category: "Visual Design"
+        description: "Editorial design for a fashion magazine.",
+        category: "Graphic Design"
     },
     {
         title: "Project 12",
         image: "images/12.JPG",
-        description: "Advanced digital illustration",
-        category: "Illustration"
+        description: "Product photography for an e-commerce campaign.",
+        category: "Photography"
+    },
+    {
+        title: "Project 13",
+        image: "images/13.jpg",
+        description: "Motion graphics for a corporate presentation.",
+        category: "Motion"
     }
 ];
 
