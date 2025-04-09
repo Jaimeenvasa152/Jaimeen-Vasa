@@ -140,13 +140,13 @@ const portfolioItems = [
     },
     {
         title: "Project 2",
-        image: "images/2.PNG",
+        image: "images/2.png",
         description: "Visual identity design for a modern brand.",
         category: "Branding"
     },
     {
         title: "Project 3",
-        image: "images/3.png",
+        image: "images/3.PNG",
         description: "Digital illustration exploring abstract themes.",
         category: "Illustration"
     },
