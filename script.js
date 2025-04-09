@@ -217,23 +217,45 @@ const portfolioGrid = document.querySelector('.portfolio-grid');
 portfolioItems.forEach((item, index) => {
     const portfolioItem = document.createElement('div');
     portfolioItem.className = 'portfolio-item';
-    portfolioItem.style.animationDelay = `${index * 0.1}s`;
     portfolioItem.setAttribute('role', 'listitem');
     portfolioItem.setAttribute('aria-label', `${item.title} - ${item.category}`);
-    
-    // Check if the item is a video (6th item)
-    if (index === 5) { // 6th item (index 5)
-        portfolioItem.innerHTML = `
-            <video src="${item.image}" alt="${item.title}" loading="lazy" muted loop aria-label="${item.title}">
-                Your browser does not support the video tag.
-            </video>
-        `;
+    portfolioItem.style.animationDelay = `${index * 0.1}s`;
+
+    let mediaElement;
+    if (index === 5) { // For the 6th item (index 5)
+        mediaElement = document.createElement('video');
+        mediaElement.src = item.image;
+        mediaElement.alt = item.title;
+        mediaElement.loading = 'lazy';
+        mediaElement.setAttribute('aria-label', item.title);
+        mediaElement.setAttribute('playsinline', '');
+        mediaElement.setAttribute('muted', '');
+        mediaElement.setAttribute('loop', '');
+        mediaElement.setAttribute('autoplay', '');
     } else {
-        portfolioItem.innerHTML = `
-            <img src="${item.image}" alt="${item.title} - ${item.category}" loading="lazy" width="800" height="600">
-        `;
+        mediaElement = document.createElement('img');
+        mediaElement.src = item.image;
+        mediaElement.alt = `${item.title} - ${item.category}`;
+        mediaElement.loading = 'lazy';
+        mediaElement.width = '800';
+        mediaElement.height = '600';
+        mediaElement.setAttribute('aria-label', item.title);
     }
-    
+
+    // Add loading event listener
+    mediaElement.addEventListener('load', () => {
+        portfolioItem.classList.add('loaded');
+    });
+
+    portfolioItem.innerHTML = `
+        ${mediaElement.outerHTML}
+        <div class="portfolio-overlay">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <span class="category">${item.category}</span>
+        </div>
+    `;
+
     portfolioGrid.appendChild(portfolioItem);
 });
 
