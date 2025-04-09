@@ -218,17 +218,19 @@ portfolioItems.forEach((item, index) => {
     const portfolioItem = document.createElement('div');
     portfolioItem.className = 'portfolio-item';
     portfolioItem.style.animationDelay = `${index * 0.1}s`;
+    portfolioItem.setAttribute('role', 'listitem');
+    portfolioItem.setAttribute('aria-label', `${item.title} - ${item.category}`);
     
     // Check if the item is a video (6th item)
     if (index === 5) { // 6th item (index 5)
         portfolioItem.innerHTML = `
-            <video src="${item.image}" alt="${item.title}" loading="lazy" muted loop>
+            <video src="${item.image}" alt="${item.title}" loading="lazy" muted loop aria-label="${item.title}">
                 Your browser does not support the video tag.
             </video>
         `;
     } else {
         portfolioItem.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            <img src="${item.image}" alt="${item.title} - ${item.category}" loading="lazy" width="800" height="600">
         `;
     }
     
@@ -238,9 +240,12 @@ portfolioItems.forEach((item, index) => {
 // Create popup container
 const popup = document.createElement('div');
 popup.className = 'popup';
+popup.setAttribute('role', 'dialog');
+popup.setAttribute('aria-modal', 'true');
+popup.setAttribute('aria-label', 'Portfolio item preview');
 popup.innerHTML = `
     <div class="popup-content">
-        <span class="close-popup">&times;</span>
+        <span class="close-popup" aria-label="Close popup">&times;</span>
         <div class="popup-media"></div>
     </div>
 `;
@@ -252,6 +257,7 @@ portfolioGrid.addEventListener('click', (e) => {
     if (portfolioItem) {
         const media = portfolioItem.querySelector('img, video');
         const popupMedia = popup.querySelector('.popup-media');
+        const itemTitle = portfolioItem.getAttribute('aria-label');
         
         // Clear previous content
         popupMedia.innerHTML = '';
@@ -263,15 +269,18 @@ portfolioGrid.addEventListener('click', (e) => {
             video.controls = true;
             video.autoplay = true;
             video.loop = true;
+            video.setAttribute('aria-label', itemTitle);
             popupMedia.appendChild(video);
         } else {
             const img = document.createElement('img');
             img.src = media.src;
             img.alt = media.alt;
+            img.setAttribute('aria-label', itemTitle);
             popupMedia.appendChild(img);
         }
         
         popup.classList.add('active');
+        popup.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
     }
 });
@@ -280,6 +289,7 @@ portfolioGrid.addEventListener('click', (e) => {
 popup.addEventListener('click', (e) => {
     if (e.target.classList.contains('close-popup') || e.target === popup) {
         popup.classList.remove('active');
+        popup.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
 });
@@ -288,6 +298,7 @@ popup.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup.classList.contains('active')) {
         popup.classList.remove('active');
+        popup.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
 });

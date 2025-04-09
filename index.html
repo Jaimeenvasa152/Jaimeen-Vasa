@@ -3,7 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphic Design Portfolio</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>Jaimeen Vasa | Graphic Designer & Photographer Portfolio</title>
+    <meta name="title" content="Jaimeen Vasa | Graphic Designer & Photographer Portfolio">
+    <meta name="description" content="Portfolio of Jaimeen Vasa, a creative graphic designer and photographer specializing in visual identity, UI/UX design, and commercial photography.">
+    <meta name="keywords" content="graphic designer, photographer, portfolio, UI/UX design, visual identity, branding, commercial photography, creative designer">
+    <meta name="author" content="Jaimeen Vasa">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jaimeen-vasa.vercel.app/">
+    <meta property="og:title" content="Jaimeen Vasa | Graphic Designer & Photographer Portfolio">
+    <meta property="og:description" content="Portfolio of Jaimeen Vasa, a creative graphic designer and photographer specializing in visual identity, UI/UX design, and commercial photography.">
+    <meta property="og:image" content="images/me.JPG">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jaimeen-vasa.vercel.app/">
+    <meta property="twitter:title" content="Jaimeen Vasa | Graphic Designer & Photographer Portfolio">
+    <meta property="twitter:description" content="Portfolio of Jaimeen Vasa, a creative graphic designer and photographer specializing in visual identity, UI/UX design, and commercial photography.">
+    <meta property="twitter:image" content="images/me.JPG">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://jaimeen-vasa.vercel.app/">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
@@ -11,78 +40,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jaimeen Vasa",
+      "url": "https://jaimeen-vasa.vercel.app/",
+      "image": "images/me.JPG",
+      "jobTitle": "Graphic Designer & Photographer",
+      "description": "Passionate graphic designer and photographer with a keen eye for detail and a love for creating unique visual experiences.",
+      "email": "mailto:jaimeenvassa@gmail.com",
+      "telephone": "+91 8866683115",
+      "sameAs": [
+        "https://www.behance.net/gallery/223293919/BudgeeBudee",
+        "https://www.linkedin.com/in/jaimeenvasa/",
+        "https://www.instagram.com/jaimeenvasaphotography/"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance Designer"
+      }
+    }
+    </script>
 </head>
 <body>
     <div class="cursor"></div>
     
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="logo">
-            <img src="images/logo.png" alt="Your Logo" class="logo-img">
+            <img src="images/logo.png" alt="Jaimeen Vasa Logo" class="logo-img">
         </div>
-        <div class="menu-toggle">
+        <div class="menu-toggle" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </div>
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" aria-label="Go to home section">Home</a></li>
+            <li><a href="#work" aria-label="Go to portfolio section">Work</a></li>
+            <li><a href="#about" aria-label="Go to about section">About</a></li>
+            <li><a href="#contact" aria-label="Go to contact section">Contact</a></li>
         </ul>
     </nav>
 
-    <section id="home" class="hero">
+    <section id="home" class="hero" aria-label="Hero section">
         <div class="hero-content">
             <h1 class="glitch" data-text="CREATIVE DESIGNER">JAIMEEN VASA</h1>
             <p>Transforming ideas into visual experiences</p><br>
-            <div class="social-links">
-                <a href="https://www.behance.net/gallery/223293919/BudgeeBudee" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-behance"></i></a>
-                <a href="mailto:jaimeenvassa@gmail.com" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/jaimeenvasa/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/jaimeenvasaphotography/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                
-                
-
+            <div class="social-links" aria-label="Social media links">
+                <a href="https://www.behance.net/gallery/223293919/BudgeeBudee" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Behance profile"><i class="fab fa-behance"></i></a>
+                <a href="mailto:jaimeenvassa@gmail.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Send email"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/jaimeenvasa/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/jaimeenvasaphotography/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram profile"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-        <div id="canvas-container"></div>
+        <div id="canvas-container" aria-hidden="true"></div>
     </section>
 
-    <section id="work" class="portfolio">
+    <section id="work" class="portfolio" aria-label="Portfolio section">
         <h2>Featured Work</h2>
-        <div class="portfolio-grid">
+        <div class="portfolio-grid" role="list" aria-label="Portfolio items">
             <!-- Portfolio items will be added dynamically via JavaScript -->
         </div>
     </section>
 
-    <section id="about" class="about">
+    <section id="about" class="about" aria-label="About section">
         <div class="about-container">
             <div class="about-image">
                 <div class="image-frame">
-                    <img src="images/me.JPG" alt="Jaimeen Vasa" class="profile-img">
+                    <img src="images/me.JPG" alt="Jaimeen Vasa - Professional headshot" class="profile-img" width="400" height="500">
                 </div>
             </div>
             <div class="about-content">
                 <h2>About Me</h2>
                 <div class="about-text">
                     <p>I'm a passionate graphic designer and photographer with a keen eye for detail and a love for creating unique visual experiences. My work focuses on blending traditional design principles with modern digital techniques.</p>
-                    <!-- <p>With over 5 years of experience in the creative industry, I've worked with diverse clients to deliver impactful visual solutions that resonate with their target audience.</p> -->
                 </div>
-                <!-- <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Projects Completed</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">30+</span>
-                        <span class="stat-label">Happy Clients</span>
-                    </div>
-                </div> -->
                 <div class="skills">
                     <h3>My Skills</h3>
                     <div class="skill">
@@ -91,7 +126,7 @@
                             <span class="skill-percentage">90%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
+                            <div class="skill-progress" style="width: 90%" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="skill">
@@ -100,7 +135,7 @@
                             <span class="skill-percentage">85%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
+                            <div class="skill-progress" style="width: 85%" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="skill">
@@ -109,48 +144,39 @@
                             <span class="skill-percentage">95%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
+                            <div class="skill-progress" style="width: 95%" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <!-- <div class="skill">
-                        <div class="skill-header">
-                            <h4>Illustration</h4>
-                            <span class="skill-percentage">80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="about-cta">
-                    <a href="#contact" class="cta-button">Get In Touch</a>
-                    <a href="/images/Jaimeen_Vasa_Resume.pdf" class="cta-button secondary">Download CV</a>
+                    <a href="#contact" class="cta-button" aria-label="Contact me">Get In Touch</a>
+                    <a href="/images/Jaimeen_Vasa_Resume.pdf" class="cta-button secondary" aria-label="Download my resume" download>Download CV</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" aria-label="Contact section">
         <h2>Get in Touch</h2>
-        <form id="contact-form" class="contact-form">
-            <input type="text" id="name" name="name" placeholder="Name" required>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <textarea id="message" name="message" placeholder="Message" required></textarea>
-            <button type="submit" id="submit-btn">Send Message</button>
-            <div id="form-status" class="form-status"></div>
+        <form id="contact-form" class="contact-form" aria-label="Contact form">
+            <input type="text" id="name" name="name" placeholder="Name" required aria-label="Your name">
+            <input type="email" id="email" name="email" placeholder="Email" required aria-label="Your email">
+            <textarea id="message" name="message" placeholder="Message" required aria-label="Your message"></textarea>
+            <button type="submit" id="submit-btn" aria-label="Send message">Send Message</button>
+            <div id="form-status" class="form-status" aria-live="polite"></div>
             
             <div class="contact-info">
                 <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:jaimeenvassa@gmail.com">jaimeenvassa@gmail.com</a>
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <a href="mailto:jaimeenvassa@gmail.com" aria-label="Email me">jaimeenvassa@gmail.com</a>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:+91 8866683115">+91 8866683115</a>
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    <a href="tel:+91 8866683115" aria-label="Call me">+91 8866683115</a>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-globe"></i>
-                    <a href="https://jaimeen-vasa.vercel.app/" target="_blank">https://jaimeen-vasa.vercel.app/</a>
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <a href="https://jaimeen-vasa.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit my website">https://jaimeen-vasa.vercel.app/</a>
                 </div>
             </div>
         </form>
@@ -162,4 +188,5 @@
 
     <script src="script.js"></script>
 </body>
+</html> 
 </html> 
