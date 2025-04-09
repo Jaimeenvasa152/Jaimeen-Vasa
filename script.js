@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show a message to the user
         formStatus.className = 'form-status error';
-        formStatus.innerHTML = 'EmailJS service is currently unavailable. <a href="' + mailtoLink + '" class="fallback-link">Click here to send via your email client</a>';
+        formStatus.innerHTML = 'This service is currently unavailable. <a href="' + mailtoLink + '" class="fallback-link">Click here to directly send an email!</a>';
         formStatus.style.display = 'block';
     }
 });
