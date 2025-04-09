@@ -158,19 +158,19 @@ const portfolioItems = [
     },
     {
         title: "Project 5",
-        image: "images/5.png",
+        image: "images/5.jpg",
         description: "Photography series capturing urban landscapes.",
         category: "Photography"
     },
     {
         title: "Project 6",
-        image: "images/6.mp4",
+        image: "images/6.jpg",
         description: "Experimental video project exploring motion design.",
         category: "Experimental"
     },
     {
         title: "Project 7",
-        image: "images/7.png",
+        image: "images/7.jpg",
         description: "Commercial advertisement design for a global brand.",
         category: "Commercial"
     },
@@ -179,30 +179,6 @@ const portfolioItems = [
         image: "images/8.JPG",
         description: "Visual storytelling through sequential art.",
         category: "Illustration"
-    },
-    {
-        title: "Project 9",
-        image: "images/9.JPG",
-        description: "Brand identity system for a startup company.",
-        category: "Branding"
-    },
-    {
-        title: "Project 10",
-        image: "images/10.JPG",
-        description: "Interactive web design with focus on user experience.",
-        category: "UI/UX"
-    },
-    {
-        title: "Project 11",
-        image: "images/11.JPG",
-        description: "Editorial design for a fashion magazine.",
-        category: "Graphic Design"
-    },
-    {
-        title: "Project 12",
-        image: "images/12.JPG",
-        description: "Product photography for an e-commerce campaign.",
-        category: "Photography"
     }
 ];
 
@@ -215,41 +191,7 @@ portfolioItems.forEach((item, index) => {
     portfolioItem.setAttribute('aria-label', `${item.title} - ${item.category}`);
     portfolioItem.style.animationDelay = `${index * 0.1}s`;
 
-    let mediaElement;
-    if (index === 5) { // For the 6th item (index 5)
-        mediaElement = document.createElement('video');
-        mediaElement.src = item.image;
-        mediaElement.alt = item.title;
-        mediaElement.loading = 'lazy';
-        mediaElement.setAttribute('aria-label', item.title);
-        mediaElement.setAttribute('playsinline', '');
-        mediaElement.setAttribute('muted', '');
-        mediaElement.setAttribute('loop', '');
-        mediaElement.setAttribute('autoplay', '');
-    } else {
-        // Create a low-quality placeholder
-        const placeholder = document.createElement('div');
-        placeholder.className = 'image-placeholder';
-        portfolioItem.appendChild(placeholder);
-
-        // Create the actual image
-        mediaElement = document.createElement('img');
-        mediaElement.src = item.image;
-        mediaElement.alt = `${item.title} - ${item.category}`;
-        mediaElement.loading = 'lazy';
-        mediaElement.width = '800';
-        mediaElement.height = '600';
-        mediaElement.setAttribute('aria-label', item.title);
-        mediaElement.style.opacity = '0';
-        mediaElement.style.transition = 'opacity 0.3s ease-in-out';
-
-        // Load image progressively
-        mediaElement.addEventListener('load', () => {
-            mediaElement.style.opacity = '1';
-            placeholder.style.display = 'none';
-            portfolioItem.classList.add('loaded');
-        });
-    }
+   
 
     portfolioItem.innerHTML = `
         ${mediaElement.outerHTML}
