@@ -140,13 +140,13 @@ const portfolioItems = [
     },
     {
         title: "Project 2",
-        image: "images/2.png",
+        image: "images/2.PNG",
         description: "Visual identity design for a modern brand.",
         category: "Branding"
     },
     {
         title: "Project 3",
-        image: "images/3.PNG",
+        image: "images/3.png",
         description: "Digital illustration exploring abstract themes.",
         category: "Illustration"
     },
@@ -158,19 +158,19 @@ const portfolioItems = [
     },
     {
         title: "Project 5",
-        image: "images/5.jpg",
+        image: "images/5.JPG",
         description: "Photography series capturing urban landscapes.",
         category: "Photography"
     },
     {
         title: "Project 6",
-        image: "images/6.jpg",
+        image: "images/6.JPG",
         description: "Experimental design project exploring new techniques.",
         category: "Experimental"
     },
     {
         title: "Project 7",
-        image: "images/7.jpg",
+        image: "images/7.JPG",
         description: "Commercial advertisement design for a global brand.",
         category: "Commercial"
     },
