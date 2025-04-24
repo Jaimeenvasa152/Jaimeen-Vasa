@@ -158,19 +158,19 @@ const portfolioItems = [
     },
     {
         title: "Project 5",
-        image: "images/5.JPG",
+        image: "images/5.PNG",
         description: "Photography series capturing urban landscapes.",
         category: "Photography"
     },
     {
         title: "Project 6",
-        image: "images/6.JPG",
+        image: "images/6.PNG",
         description: "Experimental design project exploring new techniques.",
         category: "Experimental"
     },
     {
         title: "Project 7",
-        image: "images/7.JPG",
+        image: "images/7.PNG",
         description: "Commercial advertisement design for a global brand.",
         category: "Commercial"
     },
@@ -304,7 +304,17 @@ document.addEventListener('keydown', (e) => {
 
 // EmailJS Integration
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize EmailJS with your public key
+    // Handle loading screen
+    const loadingScreen = document.querySelector('.loading');
+    
+    // Hide loading screen after all content is loaded
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            loadingScreen.classList.add('hidden');
+        }, 1000); // Show loading screen for at least 1 second
+    });
+    
+    // Initialize EmailJS
     emailjs.init("G5zHyI1h5zd7iRQfb");
     
     const contactForm = document.getElementById('contact-form');
