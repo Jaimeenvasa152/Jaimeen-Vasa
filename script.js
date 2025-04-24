@@ -158,19 +158,19 @@ const portfolioItems = [
     },
     {
         title: "Project 5",
-        image: "images/5.JPG",
+        image: "images/5.PNG",
         description: "Photography series capturing urban landscapes.",
         category: "Photography"
     },
     {
         title: "Project 6",
-        image: "images/6.JPG",
+        image: "images/6.PNG",
         description: "Experimental design project exploring new techniques.",
         category: "Experimental"
     },
     {
         title: "Project 7",
-        image: "images/7.JPG",
+        image: "images/7.PNG",
         description: "Commercial advertisement design for a global brand.",
         category: "Commercial"
     },
