@@ -27,7 +27,7 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.2s ease;
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar {
@@ -77,10 +77,22 @@ body {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
+    position: relative;
 }
 
-.nav-links a:hover {
-    color: var(--secondary-color);
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .hero {
@@ -182,6 +194,7 @@ body {
     transition: transform 0.3s ease;
     aspect-ratio: 4/3;
     contain: content;
+    opacity: 0;
 }
 
 .image-placeholder {
@@ -224,7 +237,7 @@ body {
 }
 
 .portfolio-item:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 }
 
 .hero-content p {
@@ -283,6 +296,7 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     transform: rotate(-3deg);
     transition: transform 0.5s ease;
+    opacity: 0;
 }
 
 .image-frame::before {
@@ -320,6 +334,7 @@ body {
 .about-content {
     position: relative;
     z-index: 2;
+    opacity: 0;
 }
 
 .about-content h2 {
@@ -419,6 +434,7 @@ body {
     background: var(--secondary-color);
     border-radius: 4px;
     transition: width 1s ease;
+    width: 0;
 }
 
 .about-cta {
@@ -436,7 +452,7 @@ body {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-decoration: none;
     display: inline-block;
 }
@@ -519,6 +535,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    opacity: 0;
 }
 
 .contact-form input,
@@ -528,12 +545,16 @@ body {
     border: none;
     border-radius: 5px;
     color: var(--text-color);
+    opacity: 0;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--secondary-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
 .contact-form button {
@@ -623,11 +644,11 @@ footer {
         height: 2px;
         background: var(--text-color);
         margin: 5px 0;
-        transition: 0.3s;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: translateY(8px) rotate(45deg);
     }
 
     .menu-toggle.active span:nth-child(2) {
@@ -635,7 +656,7 @@ footer {
     }
 
     .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .glitch {
@@ -676,14 +697,14 @@ section.animate {
 .social-link {
     color: var(--text-color);
     font-size: 1.5rem;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
     position: relative;
     display: inline-block;
 }
 
 .social-link:hover {
-    color: var(--secondary-color);
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    color: var(--accent-color);
 }
 
 .social-link::after {
@@ -719,6 +740,7 @@ section.animate {
     text-align: center;
     font-weight: 500;
     display: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .form-status.success {
@@ -726,6 +748,19 @@ section.animate {
     background: rgba(0, 255, 0, 0.1);
     color: #00ff00;
     border: 1px solid rgba(0, 255, 0, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
 }
 
 .form-status.error {
@@ -766,12 +801,24 @@ section.animate {
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .popup.active {
     opacity: 1;
     visibility: visible;
+    animation: popupFadeIn 0.3s forwards;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .popup-content {
@@ -779,6 +826,20 @@ section.animate {
     max-width: 90%;
     max-height: 90vh;
     margin: auto;
+    transition: transform 0.3s ease;
+}
+
+.popup-content {
+    animation: contentSlideIn 0.4s forwards;
+}
+
+@keyframes contentSlideIn {
+    from {
+        transform: translateY(20px);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 .popup-media img {
@@ -972,4 +1033,463 @@ section.animate {
 
 .direct-contact-btn i {
     font-size: 1.1rem;
+}
+
+/* Animation Enhancements */
+.hero h1, .hero p, .social-links a {
+    opacity: 0;
+}
+
+.portfolio-overlay {
+    transition: opacity 0.3s ease;
+}
+
+/* Enhanced hover effects */
+.nav-links a {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.social-link {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    color: var(--accent-color);
+}
+
+.cta-button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for form status messages */
+.form-status {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-status.success {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Enhanced popup animations */
+.popup {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.popup.active {
+    animation: popupFadeIn 0.3s forwards;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.popup-content {
+    transition: transform 0.3s ease;
+}
+
+.popup.active .popup-content {
+    animation: contentSlideIn 0.4s forwards;
+}
+
+@keyframes contentSlideIn {
+    from {
+        transform: translateY(20px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced menu toggle animation */
+.menu-toggle span {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Enhanced scroll animations */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhanced cursor animation */
+.cursor {
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+/* Enhanced loading animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Advanced Animation Styles */
+.particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cursor-trail {
+    position: fixed;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Enhanced portfolio item styles for 3D effect */
+.portfolio-item {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.portfolio-item:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced button styles for magnetic effect */
+.cta-button, .social-link {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.cta-button:hover, .social-link:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced about section for parallax effect */
+.about-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-frame {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.about-content {
+    will-change: transform;
+}
+
+/* Enhanced hero section for landing animation */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced portfolio overlay for text scramble effect */
+.portfolio-overlay h3 {
+    transition: color 0.3s ease;
+}
+
+.portfolio-overlay h3:hover {
+    color: var(--accent-color);
+}
+
+/* Enhanced loading animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Enhanced section animations */
+section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced glitch effect */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background-color);
+    clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--secondary-color);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: 2px 0 var(--accent-color);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% {
+        clip: rect(20px, 9999px, 21px, 0);
+    }
+    5% {
+        clip: rect(25px, 9999px, 99px, 0);
+    }
+    10% {
+        clip: rect(52px, 9999px, 61px, 0);
+    }
+    15% {
+        clip: rect(42px, 9999px, 29px, 0);
+    }
+    20% {
+        clip: rect(12px, 9999px, 73px, 0);
+    }
+    25% {
+        clip: rect(63px, 9999px, 27px, 0);
+    }
+    30% {
+        clip: rect(34px, 9999px, 55px, 0);
+    }
+    35% {
+        clip: rect(86px, 9999px, 73px, 0);
+    }
+    40% {
+        clip: rect(23px, 9999px, 85px, 0);
+    }
+    45% {
+        clip: rect(54px, 9999px, 27px, 0);
+    }
+    50% {
+        clip: rect(45px, 9999px, 63px, 0);
+    }
+    55% {
+        clip: rect(37px, 9999px, 20px, 0);
+    }
+    60% {
+        clip: rect(25px, 9999px, 58px, 0);
+    }
+    65% {
+        clip: rect(82px, 9999px, 31px, 0);
+    }
+    70% {
+        clip: rect(54px, 9999px, 27px, 0);
+    }
+    75% {
+        clip: rect(45px, 9999px, 63px, 0);
+    }
+    80% {
+        clip: rect(37px, 9999px, 20px, 0);
+    }
+    85% {
+        clip: rect(25px, 9999px, 58px, 0);
+    }
+    90% {
+        clip: rect(82px, 9999px, 31px, 0);
+    }
+    95% {
+        clip: rect(54px, 9999px, 27px, 0);
+    }
+    100% {
+        clip: rect(45px, 9999px, 63px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(15px, 9999px, 25px, 0);
+    }
+    5% {
+        clip: rect(35px, 9999px, 85px, 0);
+    }
+    10% {
+        clip: rect(45px, 9999px, 65px, 0);
+    }
+    15% {
+        clip: rect(25px, 9999px, 35px, 0);
+    }
+    20% {
+        clip: rect(55px, 9999px, 75px, 0);
+    }
+    25% {
+        clip: rect(65px, 9999px, 35px, 0);
+    }
+    30% {
+        clip: rect(45px, 9999px, 65px, 0);
+    }
+    35% {
+        clip: rect(75px, 9999px, 85px, 0);
+    }
+    40% {
+        clip: rect(35px, 9999px, 75px, 0);
+    }
+    45% {
+        clip: rect(65px, 9999px, 35px, 0);
+    }
+    50% {
+        clip: rect(55px, 9999px, 75px, 0);
+    }
+    55% {
+        clip: rect(45px, 9999px, 25px, 0);
+    }
+    60% {
+        clip: rect(35px, 9999px, 65px, 0);
+    }
+    65% {
+        clip: rect(75px, 9999px, 45px, 0);
+    }
+    70% {
+        clip: rect(65px, 9999px, 35px, 0);
+    }
+    75% {
+        clip: rect(55px, 9999px, 75px, 0);
+    }
+    80% {
+        clip: rect(45px, 9999px, 25px, 0);
+    }
+    85% {
+        clip: rect(35px, 9999px, 65px, 0);
+    }
+    90% {
+        clip: rect(75px, 9999px, 45px, 0);
+    }
+    95% {
+        clip: rect(65px, 9999px, 35px, 0);
+    }
+    100% {
+        clip: rect(55px, 9999px, 75px, 0);
+    }
 } 
