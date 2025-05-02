@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const templateParams = {
                 from_name: name,
                 from_email: email,
-                message: message,
+                message: message,   
                 to_name: 'Jaimeen Vasa' // Your name
             };
             
