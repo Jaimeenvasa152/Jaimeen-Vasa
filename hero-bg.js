@@ -1,6 +1,6 @@
-// Three.js Hero Section Animated 3D Parallax Particle Background
+// Three.js Hero Section Animated 3D Constellation/Network Effect
 const container = document.getElementById('canvas-container');
-let scene, camera, renderer, particles, particleGeo, particleMat, animationId;
+let scene, camera, renderer, particles, particleGeo, particleMat, animationId, linesMesh;
 let mouse = { x: 0, y: 0 };
 let target = { x: 0, y: 0 };
 
@@ -18,8 +18,8 @@ function initHeroBG() {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Create 3D parallax particles
-  const numParticles = 400;
+  // Create 3D particles
+  const numParticles = 180;
   particleGeo = new THREE.BufferGeometry();
   const positions = [];
   const colors = [];
@@ -31,7 +31,7 @@ function initHeroBG() {
     );
     // Colorful particles
     const color = new THREE.Color();
-    color.setHSL(Math.random(), 0.7, 0.6);
+    color.setHSL(Math.random(), 0.7, 0.7);
     colors.push(color.r, color.g, color.b);
   }
   particleGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -39,17 +39,24 @@ function initHeroBG() {
 
   const sprite = new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/disc.png');
   particleMat = new THREE.PointsMaterial({
-    size: 16,
+    size: 14,
     map: sprite,
     blending: THREE.AdditiveBlending,
     depthTest: false,
     transparent: true,
     vertexColors: true,
-    opacity: 0.8
+    opacity: 0.85
   });
 
   particles = new THREE.Points(particleGeo, particleMat);
   scene.add(particles);
+
+  // Lines geometry for connections
+  linesMesh = new THREE.LineSegments(
+    new THREE.BufferGeometry(),
+    new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.25, transparent: true })
+  );
+  scene.add(linesMesh);
 
   // Mouse move for parallax
   window.addEventListener('mousemove', onMouseMoveParallax);
@@ -69,6 +76,9 @@ function animateHeroBG() {
   }
   particleGeo.attributes.position.needsUpdate = true;
 
+  // Update lines between close particles
+  updateConstellationLines();
+
   // Parallax camera movement
   target.x += (mouse.x - target.x) * 0.05;
   target.y += (mouse.y - target.y) * 0.05;
@@ -78,6 +88,35 @@ function animateHeroBG() {
 
   particles.rotation.y += 0.0007;
   renderer.render(scene, camera);
+}
+
+function updateConstellationLines() {
+  const positions = particleGeo.attributes.position.array;
+  const numParticles = positions.length / 3;
+  const maxDist = 120; // distance threshold for connecting lines
+  const linePositions = [];
+
+  for (let i = 0; i < numParticles; i++) {
+    const ix = i * 3;
+    for (let j = i + 1; j < numParticles; j++) {
+      const jx = j * 3;
+      const dx = positions[ix] - positions[jx];
+      const dy = positions[ix + 1] - positions[jx + 1];
+      const dz = positions[ix + 2] - positions[jx + 2];
+      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      if (dist < maxDist) {
+        linePositions.push(
+          positions[ix], positions[ix + 1], positions[ix + 2],
+          positions[jx], positions[jx + 1], positions[jx + 2]
+        );
+      }
+    }
+  }
+
+  const lineGeometry = new THREE.BufferGeometry();
+  lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+  linesMesh.geometry.dispose();
+  linesMesh.geometry = lineGeometry;
 }
 
 function onMouseMoveParallax(event) {
