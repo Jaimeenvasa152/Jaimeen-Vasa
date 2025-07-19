@@ -1,8 +1,7 @@
-// Three.js Hero Section Animated 3D Constellation/Network Effect
+// Three.js Aurora Borealis (Northern Lights) Hero Background
 const container = document.getElementById('canvas-container');
-let scene, camera, renderer, particles, particleGeo, particleMat, animationId, linesMesh;
-let mouse = { x: 0, y: 0 };
-let target = { x: 0, y: 0 };
+let scene, camera, renderer, auroraMesh, animationId;
+let uniforms;
 
 function initHeroBG() {
   const width = container.offsetWidth;
@@ -18,112 +17,69 @@ function initHeroBG() {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Create 3D particles
-  const numParticles = 180;
-  particleGeo = new THREE.BufferGeometry();
-  const positions = [];
-  const colors = [];
-  for (let i = 0; i < numParticles; i++) {
-    positions.push(
-      (Math.random() - 0.5) * 600,
-      (Math.random() - 0.5) * 400,
-      (Math.random() - 0.5) * 800
-    );
-    // Colorful particles
-    const color = new THREE.Color();
-    color.setHSL(Math.random(), 0.7, 0.7);
-    colors.push(color.r, color.g, color.b);
-  }
-  particleGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  particleGeo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  // Aurora shader material
+  uniforms = {
+    u_time: { value: 0.0 },
+    u_resolution: { value: new THREE.Vector2(width, height) }
+  };
 
-  const sprite = new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/disc.png');
-  particleMat = new THREE.PointsMaterial({
-    size: 14,
-    map: sprite,
-    blending: THREE.AdditiveBlending,
-    depthTest: false,
-    transparent: true,
-    vertexColors: true,
-    opacity: 0.85
+  const auroraMaterial = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform float u_time;
+      uniform vec2 u_resolution;
+      
+      // Aurora color palette
+      vec3 auroraColor(float t) {
+        return mix(
+          mix(vec3(0.1, 0.8, 0.5), vec3(0.2, 0.4, 1.0), smoothstep(0.0, 0.5, t)),
+          mix(vec3(0.8, 0.9, 0.3), vec3(0.9, 0.2, 0.7), smoothstep(0.5, 1.0, t)),
+          smoothstep(0.3, 0.7, t)
+        );
+      }
+      
+      void main() {
+        float y = vUv.y;
+        float x = vUv.x;
+        float t = u_time * 0.15;
+        float wave = 0.0;
+        float bands = 3.0;
+        for (float i = 1.0; i <= bands; i += 1.0) {
+          float speed = 0.2 + i * 0.07;
+          float freq = 2.0 + i * 1.5;
+          float amp = 0.08 + i * 0.04;
+          wave += sin((x + t * speed) * freq + i * 10.0) * amp;
+        }
+        float aurora = smoothstep(0.45 + wave, 0.55 + wave, y);
+        float fade = pow(1.0 - y, 2.0);
+        vec3 color = auroraColor(x + wave + t * 0.1) * aurora * fade;
+        color += vec3(0.01, 0.02, 0.05) * (1.0 - aurora); // subtle night sky
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `,
+    transparent: true
   });
 
-  particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  // Lines geometry for connections
-  linesMesh = new THREE.LineSegments(
-    new THREE.BufferGeometry(),
-    new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.25, transparent: true })
-  );
-  scene.add(linesMesh);
-
-  // Mouse move for parallax
-  window.addEventListener('mousemove', onMouseMoveParallax);
+  // Fullscreen plane for aurora
+  const geometry = new THREE.PlaneGeometry(600, 400, 64, 64);
+  auroraMesh = new THREE.Mesh(geometry, auroraMaterial);
+  scene.add(auroraMesh);
 
   animateHeroBG();
 }
 
 function animateHeroBG() {
   animationId = requestAnimationFrame(animateHeroBG);
-
-  // Animate particles slowly in 3D space
-  const positions = particleGeo.attributes.position.array;
-  for (let i = 0; i < positions.length; i += 3) {
-    positions[i + 2] += Math.sin(Date.now() * 0.0002 + i) * 0.05;
-    if (positions[i + 2] > 400) positions[i + 2] = -400;
-    if (positions[i + 2] < -400) positions[i + 2] = 400;
-  }
-  particleGeo.attributes.position.needsUpdate = true;
-
-  // Update lines between close particles
-  updateConstellationLines();
-
-  // Parallax camera movement
-  target.x += (mouse.x - target.x) * 0.05;
-  target.y += (mouse.y - target.y) * 0.05;
-  camera.position.x = target.x * 50;
-  camera.position.y = target.y * 30;
-  camera.lookAt(scene.position);
-
-  particles.rotation.y += 0.0007;
+  uniforms.u_time.value = performance.now() / 1000;
   renderer.render(scene, camera);
-}
-
-function updateConstellationLines() {
-  const positions = particleGeo.attributes.position.array;
-  const numParticles = positions.length / 3;
-  const maxDist = 120; // distance threshold for connecting lines
-  const linePositions = [];
-
-  for (let i = 0; i < numParticles; i++) {
-    const ix = i * 3;
-    for (let j = i + 1; j < numParticles; j++) {
-      const jx = j * 3;
-      const dx = positions[ix] - positions[jx];
-      const dy = positions[ix + 1] - positions[jx + 1];
-      const dz = positions[ix + 2] - positions[jx + 2];
-      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-      if (dist < maxDist) {
-        linePositions.push(
-          positions[ix], positions[ix + 1], positions[ix + 2],
-          positions[jx], positions[jx + 1], positions[jx + 2]
-        );
-      }
-    }
-  }
-
-  const lineGeometry = new THREE.BufferGeometry();
-  lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-  linesMesh.geometry.dispose();
-  linesMesh.geometry = lineGeometry;
-}
-
-function onMouseMoveParallax(event) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  mouse.x = (event.clientX / width) * 2 - 1;
-  mouse.y = -(event.clientY / height) * 2 + 1;
 }
 
 function onResizeHeroBG() {
@@ -133,6 +89,7 @@ function onResizeHeroBG() {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
+  if (uniforms) uniforms.u_resolution.value.set(width, height);
 }
 
 window.addEventListener('resize', onResizeHeroBG);
